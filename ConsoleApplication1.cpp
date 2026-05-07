@@ -1,49 +1,35 @@
+#pragma warning(disable : 4996)
 #include <iostream>
-#include <string>
+#include <ctime>
 using namespace std;
 
+void localtime() {
+	time_t t = time(0); // get time now
+	tm* now = localtime(&t);
+
+	cout << "Year: " << now->tm_year + 1900 << endl;// year since 1900
+	cout << "Month: " << now->tm_mon + 1 << endl;// month of year from 0 to 11
+	cout << "Day: " << now->tm_mday << endl; // day of month from 1 to 31
+	cout << "Hour: " << now->tm_hour << endl; // hours of day from 0 to 24
+	cout << "Min: " << now->tm_min << endl;// minutes of hour from 0 to 59
+	cout << "Second: " << now->tm_sec << endl;// seconds of minutes from 0 to 59
+	cout << "Week Day (Days since sunday): " << now->tm_wday << endl; // days since sunday
+	cout << "Year Day (Days since Jan 1st): " << now->tm_yday << endl; // days since January 1st
+	cout << "hours of daylight savings: " << now->tm_isdst << endl; // hours of daylight savings time
+}
+
 int main(){
-	string S1 = "My Name is Mohammed Abu-Hadhoud, I Love Programming.";
-	//هي عبارة عن جملة تحتوي على 56 حرفا بما فيهم المسافات والنقاط
+	time_t t = time(0);
+	char* dt = ctime(&t);
 
-		cout << S1.length() << endl;
+	cout << "Local date and time is: " << dt << "\n";
 
-		// يُعيد الحرف الموجود في الموضع 3
-	cout << S1.at(3) << endl;
+	tm* gmtm = gmtime(&t);
+	dt = asctime(gmtm);
 
-	//يضيف @ProgrammingAdvices إلى نهاية السلسلة
-	S1.append(" @ProgrammingAdvices");
-	cout << S1 << endl;
+	cout << "UTC date and time is: " << dt << endl;
 
-	//يضيف Ali في الموضع 7
-	S1.insert(7, " Ali ");
-	cout << S1 << endl;
-
-	//يطبع جميع الأحرف التالية 8 من الموضع 16.
-	cout << S1.substr(16, 8) << endl;
-
-	//يضيف حرفًا واحدًا إلى نهاية السلسلة
-	S1.push_back('X');
-	cout << S1 << endl;
-
-	// يزيل حرفًا واحدًا من نهاية السلسلة
-	S1.pop_back();
-	cout << S1 << endl;
-
-	// يعثر على Ali يبحث عن السلسلة
-	cout << S1.find("Ali") << endl;
-
-	// يعثر على ali يبحث عن السلسلة
-	cout << S1.find("ali") << endl;
-
-	if (S1.find("ali") == S1.npos){
-		cout << "ali is not found";
-	}
-
-	//يمسح جميع أحرف السلسلة النصية.
-	S1.clear();
-	cout << S1 << endl;
+	localtime();
 
 	return 0;
 }
-
